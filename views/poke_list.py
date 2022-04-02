@@ -1,6 +1,7 @@
 import fastapi
 from fastapi_chameleon import template
 import requests as re
+import math
 
 router = fastapi.APIRouter()
 
@@ -8,13 +9,15 @@ router = fastapi.APIRouter()
 @router.get('/poke_list')
 @template(template_file='poke_list.pt')
 async def poke_list(page: int = 0):
-    x = re.get(f'https://pokeapi.co/api/v2/pokemon/?offset={18*page}&limit=18')
-    xd = x.json()
-    d = {}
-    print(xd['count'])
-    for poke in xd['results']:
+    if page > 0:
+        page-=1
+    resp = re.get(f'https://pokeapi.co/api/v2/pokemon/?offset={18*page}&limit=18')
+    re_json = resp.json()
+    pokemons = {}
+    print(re_json['count'])
+    for poke in re_json['results']:
         r = re.get(poke['url'])
-        d[poke['name']] = r.json()
-    pages_num = xd['count'] // 18
+        pokemons[poke['name']] = r.json()
+    pages_num = math.ceil(re_json['count'] / 18)
 
-    return {"message": xd, "jd": [15,13,14,12], "pokemons": xd, "pok": d, "pages_num": pages_num}
+    return {"jd": [15,13,14,12], "json": re_json, "pok": pokemons, "pages_num": pages_num, "curr_page": page}

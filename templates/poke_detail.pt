@@ -1,39 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <!-- META tags -->
-    <meta charset="utf-8"/>
-    <meta http-equiv="content-language" content="PL">
-    <!-- mobile ready -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="PL" />
     <title>Pokemon detail</title>
-</head>
-<body>
-    <img style="width: 250px; height:250px;" src=${pokemon.sprites.front_default} />
-    <img style="width: 250px; height:250px;" src=${pokemon.sprites.back_default} />
-    <h1>ID:</h1>
-    <h2>${pokemon.id}</h2>
+    <style>
+      body,
+      html {
+        margin: 0px;
+        padding: 20px;
+        min-height: 100vh;
+        background-color: #0b0c10;
+      }
+      .main_container {
+        background-color: #0b0c10;
+        align-items: center;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .basic_info {
+        display: flex;
+        gap: 25px;
+      }
+      .stats {
+        display: flex;
+        flex-direction: column;
+      }
+      .abilities {
+      }
+      .sub_container {
+        border: 1px solid #66fcf1;
+        padding: 25px;
+        transition-property: background-color, color;
+        transition-duration: 0.5s;
+        transition-timing-function: ease-out;
+        border-radius: 10px;
+        color: white;
+      }
+      .sub_container:hover {
+        background-color: #66fcf1;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main_container">
+      <div class="sub_container">
+        <div class="images">
+          <img
+            style="width: 250px; height: 250px"
+            src="${pokemon.sprites.front_default}"
+          />
+          <img
+            style="width: 250px; height: 250px"
+            src="${pokemon.sprites.back_default}"
+          />
+        </div>
+        <div class="stats">
+          <div class="basic_info">
+            <div>
+              <h1>ID: ${pokemon.id} Nazwa: ${pokemon.name}</h1>
+            </div>
+          </div>
+          <div class="type">
+            <h1>Typ:</h1>
+            <div tal:repeat="item pokemon.types">
+              <?python types = f"{item['type']['name']} " ?>
+              <h1>${types}</h1>
+            </div>
+          </div>
 
-    <h1>Nazwa:</h1>
-    <h2>${pokemon.name}</h2>
+          <div class="stats">
+            <h1>Statystyki:</h1>
+            <div tal:repeat="item pokemon.stats">
+              <?python stat = f"{item['stat']['name']}: {item['base_stat']}" ?>
+              <h2>${stat}</h2>
+            </div>
+          </div>
 
-    <h1>Typ:</h1>
-    <div tal:repeat="item pokemon.types">
-    <?python types = f"{item['type']['name']} " ?>
-        <h2>${types}</h2>
+          <div class="abilities">
+            <h1>Umiejetnosci:</h1>
+            <div tal:repeat="item pokemon.abilities">
+              <?python ability = item['ability']['name'] ?>
+              <h2>${ability}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <h1>Statystyki:</h1>
-    <div tal:repeat="item pokemon.stats">
-    <?python stat = f"{item['stat']['name']}: {item['base_stat']}" ?>
-        <h2>${stat}</h2>
-    </div>
-
-    <h1>Umiejetnosci:</h1>
-    <div tal:repeat="item pokemon.abilities">
-    <?python ability = item['ability']['name'] ?>
-        <h2>${ability}</h2>
-    </div>
-
-</body>
+  </body>
 </html>

@@ -7,7 +7,7 @@ router = fastapi.APIRouter()
 
 @router.get('/poke_detail/{poke_name}')
 @template(template_file='poke_detail.pt')
-async def poke_list(poke_name: str):
+async def poke_detail(poke_name: str):
     url = f'https://pokeapi.co/api/v2/pokemon/{poke_name}'
     r = re.get(url)
     poke = r.json()
