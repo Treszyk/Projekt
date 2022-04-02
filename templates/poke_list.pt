@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META tags -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="content-language" content="PL">
+    <!-- mobile ready -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>test</title>
+    <style>
+        .poke_container {
+            background-color: #e0e0e0;
+            width: 225px;
+            height: 225px;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            transition: 0.5.ms;
+            transition: transform .5s;
+            border-radius: 25px;
+            -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+            text-decoration: none;
+            color: black;
+        }
+        .poke_container:hover {
+            transform: scale(1.2);
+            background-color: #e05c53;
+        }
+        body {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            background-color: #9eefff;
+            justify-content:space-between;
+        }
+        .main_container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content:space-between;
+        }
+        .pages_container {
+            background-color:black;
+            width: 100%;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main_container">
+    <div tal:repeat="item pok">
+        <?python link = "/poke_detail/" + pok[item]['name'] ?>
+        <a class = "poke_container" href=${link}>
+            <?python among = pok[item] ?>
+            <h1>${among.id}. ${item}</h1>
+            <img src=${among.sprites.front_default} />
+        </a>
+    </div>
+    </div>
+
+    <div class="pages_container">
+    d
+    </div>
+</body>
+</html>
