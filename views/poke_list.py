@@ -9,6 +9,7 @@ router = fastapi.APIRouter()
 @router.get('/poke_list')
 @template(template_file='poke_list.pt')
 async def poke_list(page: int = 0):
+    page = abs(page)
     if page > 0:
         page-=1
     resp = re.get(f'https://pokeapi.co/api/v2/pokemon/?offset={18*page}&limit=18')

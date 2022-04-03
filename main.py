@@ -41,7 +41,7 @@ def configure_routers():
 
 @app.get("/")
 async def root():
-    return responses.RedirectResponse(url='static/index.html')
+    return responses.RedirectResponse(url='poke_list')
 
 
 @app.get('/favicon.ico')
